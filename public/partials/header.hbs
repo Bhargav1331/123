@@ -1,0 +1,86 @@
+<div class="navbar navbar-inverse set-radius-zero">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">
+
+                <img src="/public/assets/img/logo.png" />
+            </a>
+
+        </div>
+        {{!--
+        <?php if($_SESSION['login'])
+{
+?> --}}{{#if islogin}}
+        <div class="right-div">
+            <a href="/logout" class="btn btn-danger pull-right">LOG ME OUT</a>
+        </div>
+        {{/if}}
+        {{!--
+        <?php }?> --}}
+    </div>
+</div>
+<!-- LOGO HEADER END-->
+{{!--
+<?php if($_SESSION['login'])
+{
+?> --}}
+{{#if islogin}}
+<section class="menu-section">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="navbar-collapse collapse ">
+                    <ul id="menu-top" class="nav navbar-nav navbar-right">
+                        <li><a href="/dashboard" class="menu-top-active">DASHBOARD</a></li>
+
+
+                        <li>
+                            <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Account <i
+                                    class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/myprofile">My
+                                        Profile</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/changepassword">Change
+                                        Password</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/issuedbooks">Issued Books</a></li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{{!--
+<?php } else { ?> --}}
+{{else}}
+<section class="menu-section">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="navbar-collapse collapse ">
+                    <ul id="menu-top" class="nav navbar-nav navbar-right">
+
+                        <li><a href="/admin">Admin Login</a></li>
+                        <li><a href="/signup">User Signup</a></li>
+                        <li><a href="/">User Login</a></li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{{!--
+<?php } ?> --}}
+{{/if}}

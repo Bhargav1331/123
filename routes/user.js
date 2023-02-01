@@ -1,19 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { login, dashboard, myprofile, changepassword, issuedbooks, adminlogin, signup, forgotpassword, logout, check_availability } = require('../controller/user')
+const { login, dashboard, myprofile, changepassword, issuedbooks, adminlogin, signup, forgotpassword, logout, check_availability, first } = require('../controller/user')
 const { auth } = require('../middleware/auth')
 
-router.get('/', (req, res) => {
-    if (req.session.login) {
-        res.redirect('/dashboard')
-    }
-    else {
-        req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-        res.render('login', {
-            vercode: req.session.vercode
-        })
-    }
-});
+router.get('/', first);
 router.post('/', login)
 router.get('/dashboard', auth, dashboard)
 router.get('/myprofile', auth, myprofile)

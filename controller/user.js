@@ -1,12 +1,22 @@
-const session = require("express-session");
 const md5 = require('md5')
 const { con } = require('../db/db')
 var validator = require("email-validator");
 
+const first = async (req, res) => {
+    if (req.session.login) {
+        res.redirect('/dashboard')
+    }
+    else {
+        req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
+        res.render('login', {
+            vercode: req.session.vercode
+        })
+    }
+}
 
 const login = async (req, res) => {
 
-    if (req.body) {
+    if (req.method == 'POST') {
 
         if (req.body.vercode == '' || Number(req.body.vercode) !== req.session.vercode) {
             res.send("<script>alert('Incorrect verification code');window.location.href = '/';</script>")
@@ -192,7 +202,7 @@ const adminlogin = async (req, res) => {
 }
 const forgotpassword = async (req, res) => {
 
-    if (req.body.email) {
+    if (req.method == 'POST') {
         if (req.body.vercode == '' || Number(req.body.vercode) !== req.session.vercode) {
             res.send("<script>alert('Incorrect verification code');window.location.href = '/forgotpassword';</script>")
         } else {
@@ -224,13 +234,13 @@ const forgotpassword = async (req, res) => {
 }
 const logout = async (req, res) => {
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/as');
 
 }
 
 const check_availability = async (req, res) => {
 
-    if (req.body.emailid) {
+    if (req.method == "POST") {
         var email = req.body.emailid
         if (!validator.validate(email)) {
             res.send("<span style='color:red'>error : You did not enter a valid email.</span>")
@@ -264,4 +274,5 @@ module.exports = {
     forgotpassword,
     logout,
     check_availability,
+    first,
 }

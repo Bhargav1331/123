@@ -1,6 +1,3 @@
-const express = require('express');
-const app = express();
-
 const auth = async (req, res, next) => {
 
     if (req.session.login) {
@@ -16,5 +13,5 @@ const auth = async (req, res, next) => {
 
 
 module.exports = {
-    auth
+    auth,
 }

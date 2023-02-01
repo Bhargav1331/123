@@ -9,11 +9,11 @@ var con = mysql.createConnection({
 
 con.connect(function (err) {
     if (err) throw err;
-    /* console.log("DataBase Connected!"); */
+    console.log("DataBase Connected!");
 
 });
 
 module.exports = {
-    con
+    con,
 }
 

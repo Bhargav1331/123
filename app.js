@@ -41,7 +41,6 @@ app.use('/', userrouter);
     res.render('notfound');
 }); */
 
-
 app.listen(PORT, () => {
     console.log(`app run on port ${PORT}`)
 });

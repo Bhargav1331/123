@@ -18,7 +18,7 @@ const login = async (req, res) => {
 
     if (req.method == 'POST') {
 
-        if (req.body.vercode == '' || Number(req.body.vercode) == req.session.vercode) {
+        if (req.body.vercode == '' || Number(req.body.vercode) !== req.session.vercode) {
             res.send("<script>alert('Incorrect verification code');window.location.href = '/';</script>")
         }
         else {

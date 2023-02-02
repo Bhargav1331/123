@@ -33,13 +33,13 @@ app.use(sessions({
 
 app.use('/', userrouter);
 
-/* app.use('/admin', (req, res) => {
+ app.use('/admin', (req, res) => {
     res.send('<h1>This is admin Panel...</h1>')
-}); */
+}); 
 
-/* app.use('*', (req, res) => {
+ app.use('*', (req, res) => {
     res.render('notfound');
-}); */
+}); 
 
 app.listen(PORT, () => {
     console.log(`app run on port ${PORT}`)

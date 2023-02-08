@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Online Library Management System | Issued Book Details</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="/public/a_assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME STYLE  -->
+    <link href="/public/a_assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="/public/a_assets/css/style.css" rel="stylesheet" />
+    <!-- GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script>
+        // function for get student name
+        function getstudent() {
+            $("#loaderIcon").show();
+            jQuery.ajax({
+                url: "get_student",
+                data: 'studentid=' + $("#studentid").val(),
+                type: "POST",
+                success: function (data) {
+                    $("#get_student_name").html(data);
+                    $("#loaderIcon").hide();
+                },
+                error: function () { }
+            });
+        }
+
+        //function for book details
+        function getbook() {
+            $("#loaderIcon").show();
+            jQuery.ajax({
+                url: "get_book",
+                data: 'bookid=' + $("#bookid").val(),
+                type: "POST",
+                success: function (data) {
+                    $("#get_book_name").html(data);
+                    $("#loaderIcon").hide();
+                },
+                error: function () { }
+            });
+        }
+
+    </script>
+    <style type="text/css">
+        .others {
+            color: red;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!------MENU SECTION START-->
+    {{>admin/header}}
+    <!-- MENU SECTION END-->
+    <div class="content-wra
+    <div class=" content-wrapper">
+        <div class="container">
+            <div class="row pad-botm">
+                <div class="col-md-12">
+                    <h4 class="header-line">Issued Book Details</h4>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1"">
+<div class=" panel panel-info">
+                    <div class="panel-heading">
+                        Issued Book Details
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post">
+                            {{#each result}}
+                            <div class="form-group">
+                                <label>Student Name :</label>
+
+                                {{this.FullName}}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Book Name :</label>
+                                {{this.BookName}}
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>ISBN :</label>
+                                {{this.ISBNNumber}}
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Book Issued Date :</label>
+                                {{this.IssuesDate}}
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Book Returned Date :</label>
+
+                                {{#if this.ReturnDate}}
+                                {{this.ReturnDate}}
+                                {{else}}
+                                Not Return Yet
+                                {{/if}}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Fine (in USD) :</label>
+
+                                {{#if this.fine}}
+                                {{this.fine}}
+                                {{else}}
+                                {{#ifCond this.fine 0}}
+                                {{this.fine}}
+                                {{else}}
+                                <input class="form-control" value="{{this.fine}}" type="text" name="fine" id="fine"
+                                    required />
+                                {{/ifCond}}
+                                {{/if}}
+
+                            </div>
+
+                            {{#if this.RetrunStatus}}
+                            {{else}}
+                            <button type="submit" name="return" id="submit" class="btn btn-info">Return Book </button>
+                            {{/if}}
+                    </div>
+                    {{/each}}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    {{!--
+    <?php include('includes/footer.php');?> --}}
+    {{>admin/footer}}
+    <!-- FOOTER SECTION END-->
+    <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- CORE JQUERY  -->
+    <script src="/public/a_assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="/public/a_assets/js/bootstrap.js"></script>
+    <!-- CUSTOM SCRIPTS  -->
+    <script src="/public/a_assets/js/custom.js"></script>
+
+</body>
+
+</html>

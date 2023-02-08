@@ -22,7 +22,7 @@
 
 <body>
     <!------MENU SECTION START-->
-    {{> header}}
+    {{> user/header}}
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
         <div class="container">
@@ -58,7 +58,7 @@
                                             {{#each result}}
                                             <tr class="odd gradeX">
                                                 <td class="center">
-                                                    {{@index}}
+                                                    {{inc @index}}
                                                 </td>
                                                 <td class="center">{{this.BookName}}
                                                 </td>
@@ -102,7 +102,7 @@
     </div>
 
     <!-- CONTENT-WRAPPER SECTION END-->
-    {{> footer}}
+    {{> user/footer}}
     <!-- FOOTER SECTION END-->
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->

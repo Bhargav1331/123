@@ -7,14 +7,25 @@ app.use(cookieParser());
 
 const path = require('path')
 const userrouter = require('./routes/user')
+const adminrouter = require('./routes/admin')
 const hbs = require('hbs')
 
 require('./db/db');
 
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/public/views/');
 app.use('/public', express.static('public'));
 app.set('view engine', 'hbs')
-hbs.registerPartials(path.join(__dirname, '/public/partials'))
+
+hbs.registerPartials(path.join(__dirname, '/public/partials/'))
+hbs.registerHelper("inc", function (value, options) {
+    return parseInt(value) + 1;
+});
+hbs.registerHelper('ifCond', function (v1, v2, options) {
+    if (v1 === v2) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,9 +44,7 @@ app.use(sessions({
 
 app.use('/', userrouter);
 
-app.use('/admin', (req, res) => {
-    res.send('<h1>This is admin Panel...</h1>')
-});
+app.use('/admin', adminrouter);
 
 app.use('*', (req, res) => {
     res.render('notfound');

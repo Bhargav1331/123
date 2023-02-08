@@ -4,11 +4,11 @@ var validator = require("email-validator");
 
 const first = async (req, res) => {
     if (req.session.login) {
-        res.redirect('/dashboard')
+        res.redirect('user/dashboard')
     }
     else {
         req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-        res.render('login', {
+        res.render('user/login', {
             vercode: req.session.vercode
         })
     }
@@ -56,7 +56,7 @@ const login = async (req, res) => {
     }
     else {
         req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-        res.render('login', {
+        res.render('user/login', {
             vercode: req.session.vercode
         })
     }
@@ -71,7 +71,7 @@ const dashboard = async (req, res) => {
 
         con.query("SELECT id from tblissuedbookdetails where StudentID='" + sid + "' and RetrunStatus='0'", function (err, result1, fields) {
             if (err) throw err;
-            res.render('dashboard', {
+            res.render('user/dashboard', {
                 islogin: req.session.login, no_booksissued: result.length, no_booksreturned: result1.length
             });
 
@@ -97,7 +97,7 @@ const myprofile = async (req, res) => {
     con.query("SELECT StudentId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status from  tblstudents  where StudentId='" + sid + "'", function (err, result, fields) {
         if (err) throw err;
 
-        res.render('myprofile', {
+        res.render('user/myprofile', {
             islogin: req.session.login, result: result[0]
         })
 
@@ -114,12 +114,12 @@ const changepassword = async (req, res) => {
         con.query("update tblstudents set Password='" + newpassword + "' where EmailId='" + email + "' and Password='" + password + "'", function (err, result, fields) {
             if (err) throw err;
             if (result.affectedRows > 0) {
-                res.render('changepassword', {
+                res.render('user/changepassword', {
                     islogin: req.session.login, msg: 'Your Password succesfully changed'
                 })
             }
             else {
-                res.render('changepassword', {
+                res.render('user/changepassword', {
                     islogin: req.session.login, error: 'Your current password is wrong'
                 })
             }
@@ -127,7 +127,7 @@ const changepassword = async (req, res) => {
         });
     }
     else {
-        res.render('changepassword', {
+        res.render('user/changepassword', {
             islogin: req.session.login
         })
     }
@@ -140,7 +140,7 @@ const issuedbooks = async (req, res) => {
     var sid = req.session.stdid
     con.query("SELECT tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId='" + sid + "' order by tblissuedbookdetails.id desc", function (err, result, fields) {
         if (err) throw err;
-        res.render('issuedbooks.hbs', {
+        res.render('user/issuedbooks.hbs', {
             islogin: req.session.login, result: result
         })
 
@@ -184,7 +184,7 @@ const signup = async (req, res) => {
     }
     else {
         req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-        res.render('signup', {
+        res.render('user/signup', {
             islogin: req.session.login, vercode: req.session.vercode
         })
     }
@@ -225,7 +225,7 @@ const forgotpassword = async (req, res) => {
     }
     else {
         req.session.vercode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-        res.render('forgotpassword', {
+        res.render('user/forgotpassword', {
             islogin: req.session.login, vercode: req.session.vercode
         })
     }

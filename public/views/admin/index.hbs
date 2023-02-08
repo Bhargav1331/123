@@ -1,3 +1,26 @@
+{{!--
+<?php
+session_start();
+include('includes/config.php');
+if(isset($_POST['login']))
+{
+$username=$_POST['username'];
+$password=md5($_POST['password']);
+$sql ="SELECT UserName,Password FROM admin WHERE UserName=:username and Password=:password";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':username', $username, PDO::PARAM_STR);
+$query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query-> execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+$_SESSION['alogin']=$_POST['username'];
+echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+} else{
+echo "<script>alert('Invalid Details');</script>";
+}
+}
+?> --}}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -8,11 +31,11 @@
     <meta name="author" content="" />
     <title>Online Library Management System</title>
     <!-- BOOTSTRAP CORE STYLE  -->
-    <link href="/public/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
-    <link href="/public/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
-    <link href="/public/assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
@@ -20,8 +43,9 @@
 
 <body>
     <!------MENU SECTION START-->
-
-    {{> user/header}}
+    {{!--
+    <?php include('includes/header.php');?> --}}
+    {{>admin/header}}
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
         <div class="container">
@@ -43,21 +67,12 @@
 
                                 <div class="form-group">
                                     <label>Enter Username</label>
-                                    <input class="form-control" type="text" name="username" autocomplete="off"
-                                        required />
+                                    <input class="form-control" type="text" name="username" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="form-control" type="password" name="password" autocomplete="off"
-                                        required />
+                                    <input class="form-control" type="password" name="password" required />
                                 </div>
-                                <div class="form-group">
-                                    <label>Verification code : </label>
-                                    <input type="text" name="vercode" maxlength="5" autocomplete="off" required
-                                        style="width: 150px; height: 25px;" />&nbsp;
-                                    {{a_vercode}}
-                                </div>
-
                                 <button type="submit" name="login" class="btn btn-info">LOGIN </button>
                             </form>
                         </div>
@@ -70,15 +85,14 @@
         </div>
     </div>
     <!-- CONTENT-WRAPPER SECTION END-->
-
-    {{> user/footer}}
+    {{!--
+    <?php include('includes/footer.php');?> --}}{{>admin/footer}}
     <!-- FOOTER SECTION END-->
-    <script src="/public/assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-1.10.2.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="/public/assets/js/bootstrap.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
     <!-- CUSTOM SCRIPTS  -->
-    <script src="/public/assets/js/custom.js"></script>
-    </script>
+    <script src="assets/js/custom.js"></script>
 </body>
 
 </html>

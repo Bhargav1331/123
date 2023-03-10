@@ -49,6 +49,9 @@ app.use('/admin', adminrouter);
 app.use('*', (req, res) => {
     res.render('notfound');
 });
+app.use(function (err, req, res, next) {
+    res.render('notfound');
+})
 
 app.listen(PORT, () => {
     console.log(`app run on port ${PORT}`)
